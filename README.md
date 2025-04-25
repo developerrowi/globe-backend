@@ -11,18 +11,17 @@
 # api documentation
 
 Products
-Method | Endpoint | Description
-POST | /api/products | Create a new product
-PUT | /api/products/:id | Edit an existing product
-DELETE | /api/products/:id | Delete a product
-GET | /api/products | Get all products (public)
+
+`POST | /api/products | Create a new product`
+`PUT | /api/products/:id | Edit an existing product`
+`DELETE | /api/products/:id | Delete a product`
+`GET | /api/products | Get all products (public)`
 
 
 Users
-Method | Endpoint | Description
-POST | /api/users/signup | Register a new user
-POST | /api/users/login | User login
-GET | /api/users/me | Verify user session
+`POST | /api/users/signup | Register a new user`
+`POST | /api/users/login | User login`
+`GET | /api/users/me | Verify user session`
 
 # any assumptions or decisions made
     For dev assessment,
