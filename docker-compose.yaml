@@ -1,0 +1,37 @@
+version: "3.8"
+
+services:
+  db:
+    image: postgres:15
+    restart: always
+    ports:
+      - "5433:5432"
+    environment:
+      POSTGRES_DB: globe
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: globe123
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d globe"]
+      start_period: 1s
+
+  globe-backend:
+    build: .
+    ports:
+      - "3000:3000"
+    env_file:
+      - .env
+    user: "node"
+    command: ["/bin/sh", "-c", "npx prisma generate && npx prisma migrate deploy && npm run seed && npm start"]
+    # command: ["/bin/sh", "-c", "npx prisma generate && npx prisma migrate deploy && npm start"]
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: "postgresql://postgres:globe123@db:5432/globe?schema=public"
+      JWT_SECRET: "RowiSecretKeyYeah"
+
+volumes:
+  postgres_data:
+
